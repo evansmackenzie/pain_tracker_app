@@ -48,8 +48,8 @@ class Api::UsersController < ApplicationController
         entries.each do |entry|
           entry.destroy
         end
+        variable.destroy
       end
-      variables.destroy
       user.destroy
       render json: {message: "Your user was destroyed!"}
     else
