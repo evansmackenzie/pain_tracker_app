@@ -19,6 +19,15 @@ Rails.application.routes.draw do
     post "/posts" => "posts#create"
     patch "/posts/:id" => "posts#update"
     delete "/posts/:id" => "posts#destroy"
+
+    get "/variables" => "variables#index"
+    get "/variables/:id" => "variables#show"
+    post "/variables" => "variables#create"
+    delete "variables/:id" => "variables#destroy"
+
+    post "/entries" => "entries#create"
+    patch "/entries/:id" => "entries#update"
+    delete "/entries/:id" => "entries#destroy"
   end
 
 end

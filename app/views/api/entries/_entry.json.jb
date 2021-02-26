@@ -1,0 +1,5 @@
+{
+  id: entry.id,
+  variable_id: entry.variable_id,
+  value: entry.value
+}

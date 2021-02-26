@@ -1,10 +1,10 @@
-Post.create([
+Variable.create([
   {
     user_id: 2,
-    body: "deadlifts went great!"
+    name: "pain"
   },
   {
     user_id: 2,
-    body: "meh"
+    name: "units of alcohol"
   }
 ])
