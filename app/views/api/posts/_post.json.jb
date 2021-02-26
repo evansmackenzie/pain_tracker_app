@@ -1,0 +1,6 @@
+{
+  id: post.id,
+  user_id: post.user_id,
+  body: post.body,
+  created_at: post.created_at
+}
