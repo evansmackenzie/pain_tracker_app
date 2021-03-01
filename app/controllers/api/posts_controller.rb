@@ -8,8 +8,12 @@ class Api::PostsController < ApplicationController
   end
 
   def show
-    @post = current_user.posts.find_by(id: params[:id])
-    render "show.json.jb"
+    @post = Post.find_by(id: params[:id])
+    if current_user.id == @post.user.id
+      render "show.json.jb"
+    else
+      render json: { message: "wrong user" }
+    end
   end
 
   def create
@@ -25,18 +29,27 @@ class Api::PostsController < ApplicationController
   end
 
   def update
-    @post = current_user.posts.find_by(id: params[:id])
-    @post.body = params[:body] || @post.name
-    if @post.save
-      render "show.json.jb"
+    @post = Post.find_by(id: params[:id])
+    if current_user.id == @post.user.id
+      @post.body = params[:body] || @post.name
+      if @post.save
+        render "show.json.jb"
+      else
+        render json: {message: @post.errors.full_messages}, status: :unprocessable_entity
+      end
     else
-      render json: {message: @post.errors.full_messages}, status: :unprocessable_entity
-    end 
+      render json: { message: "wrong user" }
+    end
   end
 
   def destroy
-    @post = current_user.posts.find_by(id: params[:id])
-    @post.destroy
-    render json: {message: "Your product was destroyed!"}
+    @post = Post.find_by(id: params[:id])
+    if current_user.id == @post.user.id
+      @post.destroy
+      render json: {message: "Your product was destroyed!"}
+    else
+      render json: { message: "wrong user" }
+    end
   end
+
 end
