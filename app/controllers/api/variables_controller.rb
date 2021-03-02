@@ -8,8 +8,12 @@ class Api::VariablesController < ApplicationController
   end
 
   def show
-    @variable = current_user.variables.find_by(id: params[:id])
-    render "show.json.jb"
+    @variable = Variable.find_by(id: params[:id])
+    if current_user.id == @variable.user.id
+      render "show.json.jb"
+    else
+      render json: { message: "wrong user" }
+    end
   end
 
   def create
@@ -25,8 +29,12 @@ class Api::VariablesController < ApplicationController
   end
 
   def destroy
-    @variable = current_user.variables.find_by(id: params[:id])
-    @variable.destroy
-    render json: {message: "Your variable was destroyed!"}
+    @variable = Variable.find_by(id: params[:id])
+    if current_user.id == @variable.user.id
+      @variable.destroy
+      render json: {message: "Your variable was destroyed!"}
+    else
+      render json: { message: "wrong user" }
+    end
   end
 end

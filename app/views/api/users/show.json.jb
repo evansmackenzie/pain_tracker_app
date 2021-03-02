@@ -1,1 +1,6 @@
-render partial: "user.json.jb", locals: { user: @user } 
+json = render partial: "user.json.jb", locals: { user: @user }
+json[:variables] = @user.variables.map do |variable|
+  render partial: "api/variables/variable.json.jb", locals: { variable: variable }
+end
+json
+
