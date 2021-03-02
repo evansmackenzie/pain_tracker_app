@@ -24,7 +24,7 @@ class Api::EntriesController < ApplicationController
         render json: { message: @entry.errors.full_messages }, status: :unprocessable_entity
       end
     else
-      render json: { message: "wrong user" }
+      render json: {}, status: :unauthorized
     end
   end
 
@@ -34,7 +34,7 @@ class Api::EntriesController < ApplicationController
       @entry.destroy
       render json: { message: "Your entry was destroyed" }
     else
-      render json: { message: "wrong user" }
+      render json: {}, status: :unauthorized
     end
   end
   

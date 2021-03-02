@@ -12,7 +12,7 @@ class Api::PostsController < ApplicationController
     if current_user.id == @post.user.id
       render "show.json.jb"
     else
-      render json: { message: "wrong user" }
+      render json: {}, status: :unauthorized
     end
   end
 
@@ -38,7 +38,7 @@ class Api::PostsController < ApplicationController
         render json: {message: @post.errors.full_messages}, status: :unprocessable_entity
       end
     else
-      render json: { message: "wrong user" }
+      render json: {}, status: :unauthorized
     end
   end
 
@@ -46,9 +46,9 @@ class Api::PostsController < ApplicationController
     @post = Post.find_by(id: params[:id])
     if current_user.id == @post.user.id
       @post.destroy
-      render json: {message: "Your product was destroyed!"}
+      render json: {message: "Your post was destroyed"}
     else
-      render json: { message: "wrong user" }
+      render json: {}, status: :unauthorized
     end
   end
 

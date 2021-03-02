@@ -12,7 +12,7 @@ class Api::VariablesController < ApplicationController
     if current_user.id == @variable.user.id
       render "show.json.jb"
     else
-      render json: { message: "wrong user" }
+      render json: {}, status: :unauthorized
     end
   end
 
@@ -34,7 +34,7 @@ class Api::VariablesController < ApplicationController
       @variable.destroy
       render json: {message: "Your variable was destroyed!"}
     else
-      render json: { message: "wrong user" }
+      render json: {}, status: :unauthorized
     end
   end
 end

@@ -1,5 +1,6 @@
 {
   id: entry.id,
   variable_id: entry.variable_id,
-  value: entry.value
+  value: entry.value,
+  created_at: entry.created_at
 }

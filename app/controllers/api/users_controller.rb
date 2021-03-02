@@ -19,29 +19,37 @@ class Api::UsersController < ApplicationController
 
   def show
     @user = User.find_by(id: params[:id])
-    render "show.json.jb"
+    if current_user.id == @user.id
+      render "show.json.jb"
+    else
+      render json: {}, status: :unauthorized
+    end
   end
 
   def update
     user = params[:id]
     @user = User.find_by(id: user)
-    @user.name = params[:name] || @user.name
-    @user.email = params[:email] || @user.email
-    if params[:password]
-      @user.password = params[:password]
-      @user.password_confirmation = params[:password_confirmation]
-    end
-    @user.image_url = params[:image_url] || @user.image_url
-    if @user.save
-      render "show.json.jb"
+    if current_user.id == @user.id
+      @user.name = params[:name] || @user.name
+      @user.email = params[:email] || @user.email
+      if params[:password]
+        @user.password = params[:password]
+        @user.password_confirmation = params[:password_confirmation]
+      end
+      @user.image_url = params[:image_url] || @user.image_url
+      if @user.save
+        render "show.json.jb"
+      else
+        render json: {message: @user.errors.full_messages}, status: :unprocessable_entity
+      end
     else
-      render json: {message: @user.errors.full_messages}, status: :unprocessable_entity
+      render json: {}, status: :unauthorized
     end
   end
 
   def destroy
-    if current_user
-      user = User.find_by(id: params[:id])
+    user = User.find_by(id: params[:id])
+    if current_user.id == user.id
       variables = user.variables
       variables.each do |variable|
         entries = variable.entries
