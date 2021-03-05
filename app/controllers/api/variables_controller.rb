@@ -31,6 +31,10 @@ class Api::VariablesController < ApplicationController
   def destroy
     @variable = Variable.find_by(id: params[:id])
     if current_user.id == @variable.user.id
+      entries = @variable.entries
+      entries.each do |entry|
+        entry.destroy
+      end
       @variable.destroy
       render json: {message: "Your variable was destroyed!"}
     else
