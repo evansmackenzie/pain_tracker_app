@@ -5,7 +5,8 @@ class Api::EntriesController < ApplicationController
   def create
     @entry = Entry.create(
       variable_id: params[:variable_id],
-      value: params[:value]
+      value: params[:value],
+      rating: params[:rating]
     )
     if @entry.save
       render "show.json.jb"
@@ -18,6 +19,7 @@ class Api::EntriesController < ApplicationController
     @entry = Entry.find_by(id: params[:id])
     if current_user.id == @entry.variable.user.id
       @entry.value = params[:value] || @entry.value
+      @entry.rating = params[:rating] || @entry.rating
       if @entry.save
         render "show.json.jb"
       else

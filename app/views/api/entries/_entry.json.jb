@@ -2,5 +2,6 @@
   id: entry.id,
   variable_id: entry.variable_id,
   value: entry.value,
+  rating: entry.rating,
   created_at: entry.created_at.strftime("%m/%d/%Y")
 }
