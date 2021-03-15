@@ -2,5 +2,5 @@
   id: entry.id,
   variable_id: entry.variable_id,
   value: entry.value,
-  created_at: entry.created_at
+  created_at: entry.created_at.strftime("%m/%d/%Y")
 }
