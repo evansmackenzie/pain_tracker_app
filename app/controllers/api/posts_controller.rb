@@ -24,7 +24,7 @@ class Api::PostsController < ApplicationController
     if @post.save
       render "show.json.jb"
     else
-      render json: {message: @post.errors.full_messages}, status: :unprocessable_entity
+      render json: {errors: @post.errors.full_messages}, status: :unprocessable_entity
     end
   end
 
@@ -35,7 +35,7 @@ class Api::PostsController < ApplicationController
       if @post.save
         render "show.json.jb"
       else
-        render json: {message: @post.errors.full_messages}, status: :unprocessable_entity
+        render json: {errors: @post.errors.full_messages}, status: :unprocessable_entity
       end
     else
       render json: {}, status: :unauthorized

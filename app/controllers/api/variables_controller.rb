@@ -24,7 +24,7 @@ class Api::VariablesController < ApplicationController
     if @variable.save
       render "show.json.jb"
     else
-      render json: {message: @variable.errors.full_messages}, status: :unprocessable_entity
+      render json: {errors: @variable.errors.full_messages}, status: :unprocessable_entity
     end
   end
 

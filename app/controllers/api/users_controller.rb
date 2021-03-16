@@ -13,7 +13,7 @@ class Api::UsersController < ApplicationController
     if @user.save
       render "show.json.jb"
     else
-      render json: { errors: user.errors.full_messages }, status: :bad_request
+      render json: { errors: @user.errors.full_messages }, status: :bad_request
     end
   end
 
@@ -40,7 +40,7 @@ class Api::UsersController < ApplicationController
       if @user.save
         render "show.json.jb"
       else
-        render json: {message: @user.errors.full_messages}, status: :unprocessable_entity
+        render json: {errors: @user.errors.full_messages}, status: :unprocessable_entity
       end
     else
       render json: {}, status: :unauthorized

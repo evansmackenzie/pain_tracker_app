@@ -11,7 +11,7 @@ class Api::EntriesController < ApplicationController
     if @entry.save
       render "show.json.jb"
     else
-      render json: { message: @entry.errors.full_messages }, status: :unprocessable_entity
+      render json: { errors: @entry.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
@@ -23,7 +23,7 @@ class Api::EntriesController < ApplicationController
       if @entry.save
         render "show.json.jb"
       else
-        render json: { message: @entry.errors.full_messages }, status: :unprocessable_entity
+        render json: { errors: @entry.errors.full_messages }, status: :unprocessable_entity
       end
     else
       render json: {}, status: :unauthorized
