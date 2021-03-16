@@ -1,6 +1,7 @@
 @variables.map do |variable|
   json = render partial: "variable.json.jb", locals: { variable: variable }
-  json[:entries] = variable.entries.map do |entry|
+  sorted_variables = variable.entries.order(:created_at)
+  json[:entries] = sorted_variables.map do |entry|
     render partial: "api/entries/entry.json.jb", locals: { entry: entry }
   end
   json
