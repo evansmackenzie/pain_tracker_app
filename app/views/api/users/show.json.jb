@@ -1,6 +1,12 @@
 json = render partial: "user.json.jb", locals: { user: @user }
 json[:variables] = @user.variables.map do |variable|
-  render partial: "api/variables/variable.json.jb", locals: { variable: variable }
+  variable_hash = render partial: "api/variables/variable.json.jb", locals: { variable: variable }
+  
+  variable_hash[:last_entry] = render partial: "api/entries/entry.json.jb", locals: { entry: variable.entries.order(:created_at).last } if variable.entries.any?
+  
+  variable_hash
+  
 end
+
 json
 

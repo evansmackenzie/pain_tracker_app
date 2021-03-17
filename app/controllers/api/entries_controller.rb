@@ -20,6 +20,7 @@ class Api::EntriesController < ApplicationController
     if current_user.id == @entry.variable.user.id
       @entry.value = params[:value] || @entry.value
       @entry.rating = params[:rating] || @entry.rating
+      @entry.created_at = params[:created_at] || @entry.created_at
       if @entry.save
         render "show.json.jb"
       else
