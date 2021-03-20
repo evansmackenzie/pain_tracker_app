@@ -1,3 +1,4 @@
-@posts.map do |post|
+sorted_posts = @posts.order(:created_at)
+sorted_posts.map do |post|
   render partial: "post.json.jb", locals: { post: post }
 end
